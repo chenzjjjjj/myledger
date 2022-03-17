@@ -67,12 +67,12 @@ public class AddLedgerActivity extends AppCompatActivity {
                     case  R.id.radio_cost:
                         type = 0;
                         setClassify();
-                        mAdapter.notifyDataSetChanged();
+                        mAdapter.refresh(mDatas);
                         break;
                     case  R.id.radio_income:
                         type = 1;
                         setClassify();
-                        mAdapter.notifyDataSetChanged();
+                        mAdapter.refresh(mDatas);
                         break;
                 }
             }
@@ -90,12 +90,6 @@ public class AddLedgerActivity extends AppCompatActivity {
     }
 
     private void setClassify(){
-        mDatas.clear();
         mDatas = ledgerDao.findClassifyBytype(type);
-//        for (int i=0; i<14; i++){
-//            Classification classification = new Classification();
-//            classification.setClassify_name(name+i);
-//            mDatas.add(classification);
-//        }
     }
 }

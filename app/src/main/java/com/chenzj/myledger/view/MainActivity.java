@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         CacheDao cacheDao = new CacheDao(this);
         if (StringUtils.isBlank(cacheDao.get(Constant.IS_INIT))) {
-            new DataInitThread(this).run();
+            new DataInitThread(this).start();
         }
         String account = cacheDao.get(Constant.CURRENT_USER);
         if (StringUtils.isNotBlank(account)){ // 如果存在则表示用户已登录

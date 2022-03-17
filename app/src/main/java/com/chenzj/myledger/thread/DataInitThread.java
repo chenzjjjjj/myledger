@@ -14,7 +14,7 @@ import java.util.List;
  * @author: chenzj
  * @date: 2022/3/14 17:41
  */
-public class DataInitThread implements Runnable{
+public class DataInitThread extends Thread{
     private String[] costClassify = {"餐饮","购物","零食","水果","日用","买菜","学习","医疗","交通","娱乐","礼物","通讯","服饰","维修","健身","住房","红包"};
     private String[] incomeClassify = {"工资","奖金","收红包","生活费","投资","报销","退款","医疗"};
     private Context context;

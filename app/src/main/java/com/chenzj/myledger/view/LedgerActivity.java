@@ -28,9 +28,11 @@ public class LedgerActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ledger);
 
+        //让状态栏变透明
         BarUtils.setTranslucentStatus(this);
 //        AndroidBarUtils.setBarDarkMode(this, true);
         dbHelper = DBHelper.getInstance(getApplicationContext());
+        //通过ViewModel传递数据
         myInfoViewModel = new ViewModelProvider(this).get(MyInfoViewModel.class);
         CacheDao cacheDao = new CacheDao(dbHelper);
         String account = cacheDao.get(Constant.CURRENT_USER);
