@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:background="@color/gray_1"
+              android:layout_height="match_parent"
+              android:orientation="vertical">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:background="@color/gray_1"
+            android:minHeight="10dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="10dp"
+    >
+
+        <TextView
+                android:id="@+id/text_day_date"
+                android:layout_width="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="3月8日 周二"
+                android:textSize="@dimen/sp_size_14" />
+        <TextView
+                android:id="@+id/text_income_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="20dp"
+                android:paddingRight="7dp"
+                android:text="收入: 0元"
+                android:textSize="@dimen/sp_size_14"/>
+        <TextView
+                android:id="@+id/text_cost_total"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:paddingRight="7dp"
+                android:text="支出: 0元"
+                android:textSize="@dimen/sp_size_14"/>
+
+    </LinearLayout>
+    <LinearLayout android:layout_width="match_parent"
+                  android:background="@color/gray_1"
+                  android:layout_height="match_parent">
+        <ListView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/listview_day" />
+    </LinearLayout>
+</LinearLayout>

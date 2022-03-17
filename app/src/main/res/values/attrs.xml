@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--足迹顶部标题栏自定义属性-->
+    <declare-styleable name="HeaderBarView">
+        <attr name="headerLeftText" format="string"/>
+        <attr name="headerLeftTextColor" format="color"/>
+        <attr name="headerLeftTextSize" format="dimension"/>
+
+        <attr name="headerCenterTextColor" format="color"/>
+        <attr name="headerCenterTitle" format="string"/>
+        <attr name="headerCenterTextSize" format="dimension"/>
+
+        <attr name="headerCenterText2Color" format="color"/>
+        <attr name="headerCenterTitle2" format="string"/>
+        <attr name="headerCenterText2Size" format="dimension"/>
+        <attr name="headerCenterTitle2Visibility" format="string"/>
+        <attr name="headerCenterTitle2DrawableLeft" format="reference"/>
+
+        <attr name="headerRightTextColor" format="color"/>
+        <attr name="headerRightText" format="string"/>
+        <attr name="headerRightTextSize" format="dimension"/>
+
+        <attr name="headerLeftDrawble" format="reference"/>
+        <attr name="headerRightDrawable" format="reference"/>
+        <attr name="headerCenterLeftDrawbleVisibility" format="string"/>
+        <attr name="headerCenterRightDrawableVisibility" format="string"/>
+    </declare-styleable>
+</resources>

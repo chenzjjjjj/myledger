@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:leon="http://schemas.android.com/apk/res-auto"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="@color/gray_1"
+              tools:context=".view.ui.myinfo.MyInfoFragment" android:orientation="vertical">
+
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+        <ImageView
+                android:id="@+id/h_back"
+                android:layout_width="match_parent"
+                android:scaleType="fitXY"
+                android:src="@drawable/def_head"
+                android:layout_height="250dp"/>
+
+        <ImageView
+                android:id="@+id/h_head"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerInParent="true"/>
+
+        <ImageView
+                android:id="@+id/ic_exit"
+                android:layout_marginTop="25dp"
+                android:layout_marginRight="15dp"
+                android:layout_width="32dp"
+                android:layout_alignParentRight="true"
+                android:src="@drawable/ic_more_4"
+                android:gravity="center"
+                android:clickable="true"
+                android:layout_height="32dp"/>
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignBottom="@id/h_back"
+                android:orientation="horizontal"
+                android:layout_marginBottom="20dp">
+
+            <ImageView
+                    android:id="@+id/user_line"
+                    android:layout_width="1dp"
+                    android:layout_height="25dp"
+                    android:layout_marginLeft="15dp"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/white"/>
+
+            <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@id/user_line"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:text="xxx"/>
+
+            <TextView
+                    android:id="@+id/user_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:textSize="17sp"
+                    android:textColor="@color/white"
+                    android:layout_toRightOf="@id/user_line"
+                    android:text="****"/>
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/item_one"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="编辑信息"/>
+
+    <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="关于"/>
+
+    <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="类别管理"
+            leon:rightStyle="iconHide"/>
+
+    <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/item_four"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="卡包"
+            leon:rightStyle="iconCheck"/>
+
+    <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/item_five"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="设置"/>
+
+
+    <com.leon.lib.settingview.LSettingItem
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:isShowUnderLine="false"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="开关"
+            leon:rightStyle="iconSwitch"/>
+
+
+</LinearLayout>

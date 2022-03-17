@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent"
+                                                   tools:context=".view.MainActivity">
+
+    <!--使用线性布局-->
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:background="@color/white">
+
+        <!--Logo-->
+        <ImageView
+                android:id="@+id/LogoImage"
+                android:layout_width="match_parent"
+                android:layout_height="120dp"
+                android:layout_marginTop="100dp"
+                android:src="@drawable/logo4"/>
+
+        <!--标题-->
+        <TextView
+                android:id="@+id/TitleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="25dp"
+                android:text="@string/app_name"
+                android:gravity="center"
+                android:textStyle="italic"
+                android:textColor="#808080"
+                android:textSize="30dp" />
+
+        <!--嵌套线性布局-->
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+            <!--嵌套线性布局-->
+            <LinearLayout
+                    android:id="@+id/UserNameLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                <!--用户名输入-->
+                <EditText
+                        android:id="@+id/UserNameEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/translucent_edit"
+                        android:hint="输入用户名"
+                        android:textSize="24dp"
+                        android:singleLine="true" />
+
+            </LinearLayout>
+
+            <!--嵌套线性布局-->
+            <LinearLayout
+                    android:id="@+id/PassWordLayout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                <!--密码输入-->
+                <EditText
+                        android:id="@+id/PassWordEdit"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_marginLeft="20dp"
+                        android:layout_marginRight="20dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="15dp"
+                        android:background="@drawable/translucent_edit"
+                        android:hint="输入用户密码"
+                        android:textSize="24dp"
+                        android:maxLength="16"
+                        android:singleLine="true"
+                        android:inputType="textPassword" />
+
+            </LinearLayout>
+
+            <!--嵌套线性布局-->
+            <LinearLayout
+                    android:id="@+id/LayoutButton"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                <!--登录按钮-->
+                <Button
+                        android:id="@+id/LoginButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:background="@drawable/translucent_button"
+                        android:text="登   录"
+                        android:textSize="24dp" />
+
+                <!--注册按钮-->
+                <Button
+                        android:id="@+id/SignUpButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:padding="15dp"
+                        android:layout_margin="15dp"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:background="@drawable/translucent_button"
+                        android:text="注   册"
+                        android:textSize="24dp" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

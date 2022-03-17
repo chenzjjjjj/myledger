@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+       android:shape="rectangle">
+
+    <solid android:color="@color/gray_1" />
+    <!--如果不设置款或者高，那么在网格布局中，将不会展示 宽或者高 的divider-->
+
+    <size
+            android:width="10dp"
+            android:height="10dp" />
+
+</shape>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:background="#ffffff"
+              android:orientation="vertical">
+
+    <TextView
+            android:id="@+id/tv_exit"
+            android:clickable="true"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/button_exit_name"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp" />
+
+<!--    <View-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="1dp"-->
+<!--            android:background="@android:color/darker_gray" />-->
+
+<!--    <TextView-->
+<!--            android:id="@+id/tv_take_pic"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:gravity="center"-->
+<!--            android:text="其它"-->
+<!--            android:textColor="@android:color/background_dark"-->
+<!--            android:textSize="16sp" />-->
+
+    <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@android:color/darker_gray" />
+
+    <TextView
+            android:id="@+id/tv_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:gravity="center"
+            android:text="@string/cancel"
+            android:textColor="@android:color/background_dark"
+            android:textSize="16sp" />
+
+</LinearLayout>

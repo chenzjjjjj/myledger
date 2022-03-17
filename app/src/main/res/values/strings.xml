@@ -1,0 +1,23 @@
+<resources>
+    <string name="app_name">日常记账</string>
+    <string name="action_settings">Settings</string>
+    <!-- Strings used for fragments for navigation -->
+    <string name="first_fragment_label">First Fragment</string>
+    <string name="second_fragment_label">Second Fragment</string>
+    <string name="next">Next</string>
+
+    <string name="hello_first_fragment">Hello！这里是小账本</string>
+    <string name="introduction_second_fragment">欢迎使用. 该软件为记账工具，用于记录您的收入和生活中的各项花费，方便理财。此软件仅作学习使用</string>
+    <string name="title_activity_ledger">MainActivity</string>
+    <string name="title_home">账单</string>
+    <string name="title_statistic">统计</string>
+    <string name="title_my">我的</string>
+    <string name="title_addledger">我的</string>
+    <string name="button_exit_name">退出登录</string>
+    <string name="cancel">取消</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="inputdef">请输入...</string>
+    <string name="cost">支出</string>
+    <string name="income">收入</string>
+</resources>

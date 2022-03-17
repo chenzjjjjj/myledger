@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<GridLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/gridlayout_classify"
+        android:layout_width="@dimen/size_90"
+        android:layout_height="@dimen/size_90"
+        android:background="@drawable/selector_item_bg"
+        android:clickable="true"
+        android:focusableInTouchMode="true"
+        android:focusable="true"
+        android:orientation="vertical">
+
+    <LinearLayout android:layout_columnWeight="1"
+                  android:orientation="vertical">
+        <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/icon_classify"
+                android:src="@drawable/ic_cost_item"/>
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/text_classify_name"
+                android:layout_marginTop="5dp"
+                android:text="商品"
+                android:textSize="@dimen/sp_size_16"
+                android:textColor="@color/teal_3"
+                android:gravity="center"
+                android:textStyle="bold"/>
+    </LinearLayout>
+
+</GridLayout>

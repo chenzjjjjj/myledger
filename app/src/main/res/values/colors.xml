@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_0">#33FFBD</color>
+    <color name="teal_1">#2CC3A5</color>
+    <color name="teal_2">#2CA990</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="teal_3">#443802</color>
+    <color name="black">#FF000000</color>
+    <color name="black_0">#2E2501</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="gray_1">#F5F5F5</color>
+    <color name="gray_2">#BAB9B9</color>
+    <color name="blue">#4588f5</color>
+    <color name="blue_1">#1763DD</color>
+    <color name="red_light">#ffff4444</color>
+    <color name="blue_dark">#ff0099cc</color>
+    <color name="red_dark">#ffcc0000</color>
+
+
+    <color name="yellow_0">#f8dd8b</color>
+    <color name="yellow_1">#ffeb3b</color>
+    <color name="yellow_2">#ffc107</color>
+    <color name="yellow_3">#ff9800</color>
+    <color name="yellow_4">#FFDC6E</color>
+
+
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="green_0">#99cc33</color>
+    <color name="green_1">#3f9337</color>
+    <color name="green_2">#31CCBC</color>
+    <color name="green_3">#1f9baa</color>
+
+    <color name="key_ok_color">#1280FA</color>
+    <color name="key_ok_color_pressed">#0174f2</color>
+
+    <color name="border_color">#ADADAD</color>
+    <color name="transparent">#00000000</color>
+
+</resources>

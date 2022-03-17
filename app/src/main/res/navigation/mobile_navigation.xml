@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:app="http://schemas.android.com/apk/res-auto"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:id="@+id/mobile_navigation"
+            app:startDestination="@+id/navigation_home">
+
+    <fragment
+            android:id="@+id/navigation_home"
+            android:name="com.chenzj.myledger.view.ui.home.HomeFragment"
+            android:label="@string/title_home"
+            tools:layout="@layout/fragment_home"/>
+
+    <fragment
+            android:id="@+id/navigation_statistics"
+            android:name="com.chenzj.myledger.view.ui.statistics.StatisticsFragment"
+            android:label="@string/title_statistic"
+            tools:layout="@layout/fragment_statistics"/>
+
+    <fragment
+            android:id="@+id/navigation_my"
+            android:name="com.chenzj.myledger.view.ui.myinfo.MyInfoFragment"
+            android:label="@string/title_my"
+            tools:layout="@layout/fragment_my"/>
+
+
+    <fragment
+            android:id="@+id/fgt_addledger"
+            android:name="com.chenzj.myledger.view.ui.addledger.AddLedgerFragment"
+            android:label="@string/title_addledger"
+            tools:layout="@layout/fragment_add_ledger"/>
+</navigation>
