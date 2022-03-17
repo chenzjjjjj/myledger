@@ -7,8 +7,10 @@ import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import com.chenzj.myledger.R;
+import com.chenzj.myledger.model.Classification;
 import com.chenzj.myledger.model.DayLedger;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,6 +87,34 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
             }
         });
         return itemView;
+    }
+
+    public void refresh(List<DayLedger> newList) {
+        dayLedgers.clear();
+        dayLedgers.addAll(newList);
+        notifyDataSetChanged();
+    }
+
+    public void add(DayLedger dayLedger) {
+        if (dayLedgers == null) {
+            dayLedgers = new ArrayList<>();
+        }
+        dayLedgers.add(dayLedger);
+        notifyDataSetChanged();
+    }
+
+    public void remove(DayLedger dayLedger) {
+        if(dayLedgers != null) {
+            dayLedgers.remove(dayLedger);
+        }
+        notifyDataSetChanged();
+    }
+
+    public void remove(int position) {
+        if(dayLedgers != null) {
+            dayLedgers.remove(position);
+        }
+        notifyDataSetChanged();
     }
 
     /**

@@ -25,7 +25,7 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     List<Classification> classificationList;
     // 申明一个点击事件接口变量
     private OnItemClickCallback callback = null;
-    private int selectedPosition = -1;
+    private int selectedPosition = 0;
 
     public ClassifyAdapter(Context mContext, List<Classification> classificationList) {
         this.mContext = mContext;

@@ -4,6 +4,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteStatement;
+import android.os.Build;
+import androidx.annotation.RequiresApi;
 import com.chenzj.myledger.model.Classification;
 import com.chenzj.myledger.model.DayLedger;
 import com.chenzj.myledger.model.Ledger;
@@ -12,10 +14,8 @@ import com.chenzj.myledger.utils.StringUtils;
 import com.chenzj.myledger.utils.TimeUtils;
 
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * @description: TODO
@@ -36,7 +36,7 @@ public class LedgerDao {
     public void add(Ledger ledger) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();// 取得数据库操作
         db.execSQL("insert into t_ledger (amount, insert_time,type, remark,classify_id,user_id) values(?,?,?,?,?,?)",
-                new Object[] { ledger.getAmount(), ledger.getInsertTime(), ledger.getType(), ledger.getClassifyId(),ledger.getUserId()});
+                new Object[] { ledger.getAmount(), ledger.getInsertTime(), ledger.getType(), ledger.getRemark(), ledger.getClassifyId(),ledger.getUserId()});
     }
 
     public void delete(int id) {
@@ -89,6 +89,62 @@ public class LedgerDao {
             lists.add(ledger);
         }
         return lists;
+    }
+
+    public List<Ledger> findLedgersByMonth(String month){
+        List<Ledger> lists = new ArrayList<>();
+        Ledger ledger = null;
+        SQLiteDatabase db = dbHelper.getReadableDatabase();
+        // Cursor cursor=db.rawQuery("select * from t_users limit ?,?", new
+        // String[]{offset.toString(),maxLength.toString()});
+        // //这里支持类型MYSQL的limit分页操作
+
+        Cursor cursor = db.rawQuery("select * from t_ledger where insert_time like ?", new String[]{ month + "%" });
+        while (cursor.moveToNext()) {
+            ledger = new Ledger();
+            ledger.setAmount(cursor.getDouble(cursor.getColumnIndex("amount")));
+            ledger.setId(cursor.getInt(cursor.getColumnIndex("id")));
+            ledger.setClassifyId(cursor.getInt(cursor.getColumnIndex("classify_id")));
+            ledger.setInsertTime(cursor.getString(cursor.getColumnIndex("insert_time")));
+            ledger.setType(cursor.getInt(cursor.getColumnIndex("type")));
+            ledger.setUserId(cursor.getInt(cursor.getColumnIndex("user_id")));
+            ledger.setRemark(cursor.getString(cursor.getColumnIndex("remark")));
+            ledger.setClassify(findClassifyName(ledger.getClassifyId()));
+            lists.add(ledger);
+        }
+        return lists;
+    }
+
+    public List<DayLedger> findDayledgersBymonth2(String yyyy_mm){
+        List<DayLedger> dayLedgers = new ArrayList<>();
+        List<Ledger> ledgers= findLedgersByMonth(yyyy_mm);
+        Map<String, List<Ledger>> resultList = new HashMap<>();
+        listGroup(ledgers, resultList);
+        for (Map.Entry<String, List<Ledger>> entry : resultList.entrySet()){
+            String day = entry.getKey();
+            DayLedger dayLedger = new DayLedger(entry.getValue());
+            dayLedger.setDate(day);
+            dayLedgers.add(dayLedger);
+        }
+        return dayLedgers;
+    }
+
+    public void listGroup(List<Ledger> list, Map<String, List<Ledger>> map) {//map是用来接收分好的组的
+        if (null == list || null == map) {
+            return;
+        }
+
+        String key;
+        List<Ledger> listTmp;
+        for (Ledger val : list) {
+            key = val.getInsertTime();//按这个属性分组，map的Key
+            listTmp = map.get(key);
+            if (null == listTmp) {
+                listTmp = new ArrayList<>();
+                map.put(key, listTmp);
+            }
+            listTmp.add(val);
+        }
     }
 
     public List<DayLedger> findDayledgersBymonth(String yyyy_mm){

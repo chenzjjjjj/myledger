@@ -38,6 +38,7 @@ public class LedgerActivity extends AppCompatActivity {
         String account = cacheDao.get(Constant.CURRENT_USER);
         UserDao userDao = new UserDao(dbHelper);
         User user = userDao.findUserByAccount(account);
+        //将用户信息存入到myInfoViewModel
         myInfoViewModel.getUserMLData().setValue(user);
 
         BottomNavigationView navView = findViewById(R.id.nav_view);
