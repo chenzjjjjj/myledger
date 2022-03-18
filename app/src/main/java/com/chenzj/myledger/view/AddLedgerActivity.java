@@ -1,10 +1,10 @@
 package com.chenzj.myledger.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
-import android.widget.EditText;
-import android.widget.RadioGroup;
-import android.widget.Toast;
+import android.widget.*;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.lifecycle.ViewModelProvider;
@@ -24,20 +24,23 @@ import com.chenzj.myledger.view.ui.myinfo.MyInfoViewModel;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
-public class AddLedgerActivity extends AppCompatActivity {
+public class AddLedgerActivity extends AppCompatActivity implements DatePicker.OnDateChangedListener {
 
     EditText ledger_amount;
-    EditText ledger_date;
+    TextView ledger_date;
     EditText et_ledger_remark;
     ClassifyAdapter mAdapter;
     Classification chooseClassify;
-    int type = 0;
+    private int type = 0;
     private List<Classification> mDatas = new ArrayList<>();
     private LedgerDao ledgerDao;
     private MyInfoViewModel myInfoViewModel;
-    User user;
+    private User user;
+    private StringBuffer date;
+    private int year, month, day;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,14 +54,23 @@ public class AddLedgerActivity extends AppCompatActivity {
         myInfoViewModel = new ViewModelProvider(this).get(MyInfoViewModel.class);
         user = myInfoViewModel.getUserMLData().getValue();
 
-        ledger_date.setText(TimeUtils.getCurrentDate());
+        //初始化日期
+        initDateTime();
+        date = new StringBuffer();
+        ledger_date.setText(getDate());
+        ledger_date.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                showDateDialog();
+            }
+        });
+
         setClassify();
         mAdapter = new ClassifyAdapter(this, mDatas);
         mAdapter.setClickCallback(new ClassifyAdapter.OnItemClickCallback<Classification>() {
             @Override
             public void onClick(View view, Classification info) {
                 chooseClassify = info;
-//                Toast.makeText(AddLedgerActivity.this,info.getClassify_name(), Toast.LENGTH_SHORT).show();
                 Snackbar.make(view, info.getClassify_name(), Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
             }
@@ -76,7 +88,6 @@ public class AddLedgerActivity extends AppCompatActivity {
             @Override
             public void onOkClick() {
                 AddLedger();
-                startActivity(new Intent(AddLedgerActivity.this, LedgerActivity.class));
                 AddLedgerActivity.this.finish();
             }
         });
@@ -115,18 +126,78 @@ public class AddLedgerActivity extends AppCompatActivity {
     private void AddLedger() {
         Ledger ledger = new Ledger();
         String amount = ledger_amount.getText().toString();
-        String date = ledger_date.getText().toString();
+        String cdate = year+"-"+getMonth()+"-"+getDay();
         String remark = et_ledger_remark.getText().toString();
         ledger.setUserId(user.getUserId());
         ledger.setAmount(Double.parseDouble(amount));
         ledger.setType(type);
         ledger.setRemark(remark);
-        ledger.setInsertTime(date);
+        ledger.setInsertTime(cdate);
         ledger.setClassifyId(chooseClassify.getClassify_id());
         ledgerDao.add(ledger);
     }
 
+    private void initDateTime() {
+        Calendar calendar = Calendar.getInstance();
+        year = calendar.get(Calendar.YEAR);
+        month = calendar.get(Calendar.MONTH) + 1;
+        day = calendar.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public void showDateDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                if (date.length() > 0) { //清除上次记录的日期
+                    date.delete(0, date.length());
+                }
+                ledger_date.setText(getDate());
+                dialog.dismiss();
+            }
+        });
+        builder.setNegativeButton("取消", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.dismiss();
+            }
+        });
+        final AlertDialog dialog = builder.create();
+        View dialogView = View.inflate(this, R.layout.dialog_date, null);
+        final DatePicker datePicker = dialogView.findViewById(R.id.datePicker);
+
+        dialog.setTitle("选择日期");
+        dialog.setView(dialogView);
+        dialog.show();
+        //初始化日期监听事件
+        datePicker.init(year, month - 1, day, this);
+    }
+
+    @Override
+    public void onDateChanged(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+        this.year = year;
+        this.month = monthOfYear + 1; //月份下标是从0开始的，值为0时表示一月份
+        this.day = dayOfMonth;
+    }
+
     private void setClassify(){
         mDatas = ledgerDao.findClassifyBytype(type);
+        chooseClassify = mDatas.get(0);
+    }
+
+    private String getDate(){
+        if (date.length() > 0) { //清除上次记录的日期
+            date.delete(0, date.length());
+        }
+        date.append(year).append("年").append(getMonth()).append("月").append(getDay()).append("日");
+        return date.toString();
+    }
+
+    private String getMonth(){
+        return (month>9?"":"0") + month;
+    }
+
+    private String getDay(){
+        return (day>9?"":"0") + day;
     }
 }

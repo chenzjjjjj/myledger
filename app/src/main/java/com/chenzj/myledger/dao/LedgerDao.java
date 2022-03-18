@@ -126,6 +126,7 @@ public class LedgerDao {
             dayLedger.setDate(day);
             dayLedgers.add(dayLedger);
         }
+        Collections.reverse(dayLedgers);
         return dayLedgers;
     }
 
