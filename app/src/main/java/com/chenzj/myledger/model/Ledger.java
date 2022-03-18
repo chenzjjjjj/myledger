@@ -1,5 +1,6 @@
 package com.chenzj.myledger.model;
 
+import com.chenzj.myledger.R;
 import com.chenzj.myledger.utils.TimeUtils;
 
 import java.util.Date;
@@ -74,6 +75,7 @@ public class Ledger {
 
     public void setType(int type) {
         this.type = type;
+        setIcon(type < 1 ? R.drawable.ic_cost_2:R.drawable.ic_income_2);
     }
 
     public int getIcon() {

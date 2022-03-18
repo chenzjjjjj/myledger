@@ -118,6 +118,7 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
         // 设置滚动方向
         gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
+        gridLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
@@ -149,9 +150,6 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                if (date.length() > 0) { //清除上次记录的日期
-                    date.delete(0, date.length());
-                }
                 ledger_date.setText(getDate());
                 dialog.dismiss();
             }
@@ -171,6 +169,7 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         dialog.show();
         //初始化日期监听事件
         datePicker.init(year, month - 1, day, this);
+        datePicker.setMaxDate(Calendar.getInstance().getTimeInMillis());
     }
 
     @Override
@@ -189,7 +188,7 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         if (date.length() > 0) { //清除上次记录的日期
             date.delete(0, date.length());
         }
-        date.append(year).append("年").append(getMonth()).append("月").append(getDay()).append("日");
+        date.append(year).append(TimeUtils.YEAR_SPACER).append(getMonth()).append(TimeUtils.MONTH_SPACER).append(getDay()).append(TimeUtils.DAY_SPACER);
         return date.toString();
     }
 

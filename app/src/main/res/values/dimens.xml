@@ -6,11 +6,15 @@
     <dimen name="sp_size_16">16sp</dimen>
     <dimen name="sp_size_18">18sp</dimen>
     <dimen name="sp_size_20">20sp</dimen>
+    <dimen name="size_4">14dp</dimen>
     <dimen name="size_6">16dp</dimen>
     <dimen name="size_7">20dp</dimen>
     <dimen name="size_8">24dp</dimen>
+    <dimen name="size_30">30dp</dimen>
+    <dimen name="size_40">40dp</dimen>
     <dimen name="size_90">90dp</dimen>
     <dimen name="size_100">100dp</dimen>
+    <dimen name="size_120">120dp</dimen>
     <dimen name="title_bar_height">76dp</dimen>
     <dimen name="title_bar_height_1">186dp</dimen>
 </resources>

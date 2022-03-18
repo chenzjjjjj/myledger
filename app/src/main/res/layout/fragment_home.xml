@@ -12,20 +12,74 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-        <com.chenzj.myledger.view.ui.component.HeaderBarView
-                android:id="@+id/title_bar"
+<!--        <com.chenzj.myledger.view.ui.component.HeaderBarView-->
+<!--                android:id="@+id/title_bar"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="88dp"-->
+<!--                android:background="#4588f5"-->
+<!--                app:headerCenterTextColor="#FFF"-->
+<!--                app:headerCenterTextSize="14dp"-->
+<!--                app:headerCenterTitle="记账"-->
+<!--                app:headerCenterTitle2Visibility="gone"-->
+<!--                app:headerLeftDrawble="@drawable/ic_back"-->
+<!--                app:headerRightDrawable="@drawable/ic_more_4"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent" />-->
+        <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="88dp"
-                android:background="#4588f5"
-                app:headerCenterTextColor="#FFF"
-                app:headerCenterTextSize="14dp"
-                app:headerCenterTitle="记账"
-                app:headerCenterTitle2Visibility="gone"
-                app:headerLeftDrawble="@drawable/ic_back"
-                app:headerRightDrawable="@drawable/ic_more_4"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:paddingTop="40dp"
+                android:background="@color/blue"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content">
+                <TextView android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:textColor="@color/white"
+                          android:gravity="center_horizontal"
+                          android:textSize="@dimen/sp_size_20"
+                          android:text="@string/app_name"/>
+            </LinearLayout>
+            <LinearLayout android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:paddingTop="@dimen/size_6"
+                          android:paddingBottom="10dp"
+                          android:orientation="horizontal">
+                <TextView
+                        android:id="@+id/et_ledger_month"
+                        android:layout_width="@dimen/size_120"
+                        android:layout_height="wrap_content"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:textColor="@color/white"
+                        android:drawableRight="@drawable/ic_down"
+                        android:text="2022年03月"
+                        android:clickable="true"/>
+                <View
+                        android:layout_width="2dp"
+                        android:layout_height="35dp"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/white"/>
+
+                <TextView android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/tv_income_month"
+                          android:paddingLeft="@dimen/size_6"
+                          android:textSize="@dimen/sp_size_14"
+                          android:textColor="@color/white"
+                          android:layout_weight="1"
+                          android:text="月收入"/>
+
+                <TextView android:layout_width="0dp"
+                          android:layout_height="wrap_content"
+                          android:id="@+id/tv_cost_month"
+                          android:textSize="@dimen/sp_size_14"
+                          android:layout_weight="1"
+                          android:textColor="@color/white"
+                          android:text="月支出"/>
+            </LinearLayout>
+        </LinearLayout>
 
 
         <RelativeLayout android:layout_width="match_parent"

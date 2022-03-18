@@ -14,9 +14,14 @@ import java.util.Date;
  * @date: 2022/2/20 20:24
  */
 public class TimeUtils {
-    private static final SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
-    private static final SimpleDateFormat ym = new SimpleDateFormat("yyyy-MM");
-    private static final SimpleDateFormat ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final SimpleDateFormat ymd = new SimpleDateFormat("yyyy-MM-dd");
+    public static final SimpleDateFormat ym = new SimpleDateFormat("yyyy-MM");
+    public static final SimpleDateFormat ymdhms = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static final String YEAR_SPACER = "年";
+    public static final String MONTH_SPACER = "月";
+    public static final String DAY_SPACER = "日";
+    public static final String HORIZONTAL_SPACER = "-";
+    public static final String SLASH_SPACER = "/";
 
     public static String getCurrentTime(){
         return ymdhms.format(new Date());
