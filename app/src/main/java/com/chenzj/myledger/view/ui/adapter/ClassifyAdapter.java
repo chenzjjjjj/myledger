@@ -33,6 +33,12 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         this.classificationList = classificationList;
     }
 
+    public ClassifyAdapter(Context mContext, List<Classification> classificationList, int position) {
+        this.mContext = mContext;
+        this.classificationList = classificationList;
+        this.selectedPosition = position;
+    }
+
     public ClassifyAdapter(Context mContext, List<Classification> classificationList, OnItemClickCallback callback) {
         this.mContext = mContext;
         this.classificationList = classificationList;
@@ -118,6 +124,6 @@ public class ClassifyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
         // 点击事件
         void onClick(View view , T info);
         // 长按事件
-        void onLongClick(View view , T info);
+//        void onLongClick(View view , T info);
     }
 }

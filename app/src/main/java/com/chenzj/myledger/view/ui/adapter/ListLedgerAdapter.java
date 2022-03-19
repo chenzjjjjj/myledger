@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import com.chenzj.myledger.R;
+import com.chenzj.myledger.model.DayLedger;
 import com.chenzj.myledger.model.Ledger;
 
 import java.util.List;
@@ -82,12 +83,19 @@ public class ListLedgerAdapter extends ArrayAdapter<Ledger> {
         ledgerItemView.tvItemName.setText(ledger.getClassify());
         ledgerItemView.tvAmount.setText(amount);
         //修改金额的颜色
-        int color = type < 1 ? R.color.red_light: R.color.blue;
+        int color = type < 1 ? R.color.red_light: R.color.green_1;
         ledgerItemView.tvAmount.setTextColor(getContext().getResources().getColor(color));
 //        textAmount.setTextColor(Color.parseColor("#4D7CFE"));  //或者使用这种方式设置颜色
         return itemView;
     }
 
+
+    public void remove(int poi) {
+        if(ledgers != null) {
+            ledgers.remove(poi);
+        }
+        notifyDataSetChanged();
+    }
 
     public Context getContext() {
         return context;

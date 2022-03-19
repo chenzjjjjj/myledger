@@ -12,12 +12,16 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import com.chenzj.myledger.R;
+import com.chenzj.myledger.common.Constant;
+import com.chenzj.myledger.dao.CacheDao;
 import com.chenzj.myledger.dao.LedgerDao;
 import com.chenzj.myledger.model.DayLedger;
 import com.chenzj.myledger.utils.StringUtils;
 import com.chenzj.myledger.utils.TimeUtils;
 import com.chenzj.myledger.view.AddLedgerActivity;
+import com.chenzj.myledger.view.LoginActivity;
 import com.chenzj.myledger.view.ui.adapter.DayItemAdapter;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.*;
@@ -113,16 +117,6 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
         listView = view.findViewById(R.id.listview_ledger);
         listAdapter = new DayItemAdapter(getContext(), R.layout.view_day_item, dayLedgers);
         listView.setAdapter(listAdapter);
-
-        //listView注册一个元素点击事件监听器
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            //当某个元素被点击时调用该方法
-//            public void onItemClick(AdapterView<?> parent, View view, int position,//parent就是ListView，view表示Item视图，position表示数据索引
-//                                    long id) {
-//                Toast.makeText(getContext(), "",Toast.LENGTH_LONG).show();
-//            }
-//        });
     }
 
     public void showDateDialog() {
@@ -172,8 +166,8 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
             costTotal += dayLedger.getCostTotal();
             incomeTotal += dayLedger.getIncomeTotal();
         }
-        tvIncomeMonth.setText("月收入："+String.valueOf(incomeTotal));
-        tvCostMonth.setText("月支出："+String.valueOf(costTotal));
+        tvIncomeMonth.setText("月收入："+incomeTotal);
+        tvCostMonth.setText("月支出："+costTotal);
     }
 
     @Override

@@ -13,44 +13,58 @@
             android:layout_height="wrap_content"
             android:orientation="vertical" tools:ignore="MissingConstraints">
 
+
         <LinearLayout
                 android:layout_width="match_parent"
-                android:paddingTop="@dimen/size_8"
+                android:paddingTop="@dimen/size_30"
                 android:background="@color/blue"
-                android:gravity="center_horizontal"
                 android:layout_height="wrap_content">
-        <RadioGroup
-                android:id="@+id/radioGroup_classify"
-                android:layout_width="250dp"
-                android:layout_height="50dp"
-                android:orientation="horizontal" >
 
-            <RadioButton
-                    android:id="@+id/radio_cost"
-                    android:layout_width="0dp"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:textColor="@color/white"
-                    android:background="@drawable/radio_btn_line"
-                    android:button="@null"
-                    android:checked="true"
-                    android:textSize="@dimen/sp_size_18"
-                    android:gravity="center"
-                    android:text="@string/cost" />
+            <ImageView
+                    android:id="@+id/iv_back"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
+                    android:clickable="true"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_back"
+                    android:layout_marginLeft="10dp"
+                    android:scaleType="centerInside" />
 
-            <RadioButton
-                    android:id="@+id/radio_income"
-                    android:layout_width="0dp"
-                    android:textColor="@color/white"
-                    android:layout_height="fill_parent"
-                    android:layout_weight="1"
-                    android:textSize="@dimen/sp_size_18"
-                    android:background="@drawable/radio_btn_line"
-                    android:button="@null"
-                    android:gravity="center"
-                    android:text="@string/income" />
+            <RadioGroup
+                    android:id="@+id/radioGroup_classify"
+                    android:layout_width="250dp"
+                    android:layout_height="50dp"
+                    android:layout_marginLeft="40dp"
+                    android:layout_marginTop="20dp"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal" >
 
-        </RadioGroup>
+                <RadioButton
+                        android:id="@+id/radio_cost"
+                        android:layout_width="0dp"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:textColor="@color/white"
+                        android:background="@drawable/radio_btn_line"
+                        android:button="@null"
+                        android:checked="true"
+                        android:textSize="@dimen/sp_size_18"
+                        android:gravity="center"
+                        android:text="@string/cost" />
+
+                <RadioButton
+                        android:id="@+id/radio_income"
+                        android:layout_width="0dp"
+                        android:textColor="@color/white"
+                        android:layout_height="fill_parent"
+                        android:layout_weight="1"
+                        android:textSize="@dimen/sp_size_18"
+                        android:background="@drawable/radio_btn_line"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="@string/income" />
+
+            </RadioGroup>
         </LinearLayout>
 
         <LinearLayout

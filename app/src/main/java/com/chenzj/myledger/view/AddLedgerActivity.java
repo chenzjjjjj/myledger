@@ -31,6 +31,7 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
 
     EditText ledger_amount;
     TextView ledger_date;
+    ImageView iv_back;
     EditText et_ledger_remark;
     ClassifyAdapter mAdapter;
     Classification chooseClassify;
@@ -39,8 +40,9 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
     private LedgerDao ledgerDao;
     private MyInfoViewModel myInfoViewModel;
     private User user;
-    private StringBuffer date;
+    private StringBuffer choosedate = new StringBuffer();;
     private int year, month, day;
+    private int updateLedgerId = -1; //默认false，表示添加新账目
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,14 +52,45 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         ledger_amount = findViewById(R.id.et_ledger_amount);
         ledger_date = findViewById(R.id.et_ledger_date);
         et_ledger_remark = findViewById(R.id.et_ledger_remark);
+        iv_back = findViewById(R.id.iv_back);
+        iv_back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AddLedgerActivity.this.finish();
+            }
+        });
         //从ViewModel中获取用户
         myInfoViewModel = new ViewModelProvider(this).get(MyInfoViewModel.class);
         user = myInfoViewModel.getUserMLData().getValue();
 
-        //初始化日期
-        initDateTime();
-        date = new StringBuffer();
-        ledger_date.setText(getDate());
+        //如果过来的时候携带了数据则表示编辑账目了
+        Bundle bundle = this.getIntent().getExtras();
+        if (bundle!=null && !bundle.isEmpty()){
+            //如果过来的时候携带了数据则表示编辑账目了
+            updateLedgerId = bundle.getInt("id");
+            chooseClassify = new Classification();
+            chooseClassify.setClassify_id(bundle.getInt("classifyId"));
+            ledger_amount.setText(""+bundle.getDouble("amount"));
+            type = bundle.getInt("type");
+            setClassify(); //初始化标签
+            et_ledger_remark.setText(bundle.getString("remark"));
+            String[] data = bundle.getString("date").split("-");
+            year = Integer.parseInt(data[0]);
+            month = Integer.parseInt(data[1]);
+            day = Integer.parseInt(data[2]);
+            ledger_date.setText(getDate());
+            int posi = getPosition(chooseClassify);
+            mAdapter = new ClassifyAdapter(this, mDatas, posi);
+        }else { //否则就是添加账目
+            updateLedgerId = -1;
+            //初始化日期
+            initDateTime();
+            ledger_date.setText(getDate());
+            setClassify(); //初始化标签
+            chooseClassify = mDatas.get(0); //默认第一个
+            mAdapter = new ClassifyAdapter(this, mDatas);
+        }
+
         ledger_date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -65,19 +98,12 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
             }
         });
 
-        setClassify();
-        mAdapter = new ClassifyAdapter(this, mDatas);
         mAdapter.setClickCallback(new ClassifyAdapter.OnItemClickCallback<Classification>() {
             @Override
             public void onClick(View view, Classification info) {
                 chooseClassify = info;
                 Snackbar.make(view, info.getClassify_name(), Snackbar.LENGTH_SHORT)
                         .setAction("Action", null).show();
-            }
-
-            @Override
-            public void onLongClick(View view, Classification info) {
-
             }
         });
 
@@ -94,6 +120,7 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         keyboardUtils.attachTo(ledger_amount);
 
         RadioGroup radioGroup = findViewById(R.id.radioGroup_classify);
+        radioGroup.check(type == 0 ?R.id.radio_cost : R.id.radio_income);
         radioGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -124,6 +151,16 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
     }
 
+    private int getPosition(Classification chooseClassify) {
+        int size = mDatas.size();
+        for (int i=0; i<size; i++){
+            if (mDatas.get(i).getClassify_id() == chooseClassify.getClassify_id()){
+                return i;
+            }
+        }
+        return 0;
+    }
+
     private void AddLedger() {
         Ledger ledger = new Ledger();
         String amount = ledger_amount.getText().toString();
@@ -135,7 +172,12 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         ledger.setRemark(remark);
         ledger.setInsertTime(cdate);
         ledger.setClassifyId(chooseClassify.getClassify_id());
-        ledgerDao.add(ledger);
+        if ( updateLedgerId < 0 ){
+            ledgerDao.add(ledger);
+        }else {
+            ledger.setId(updateLedgerId);
+            ledgerDao.update(ledger);
+        }
     }
 
     private void initDateTime() {
@@ -181,15 +223,14 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
 
     private void setClassify(){
         mDatas = ledgerDao.findClassifyBytype(type);
-        chooseClassify = mDatas.get(0);
     }
 
     private String getDate(){
-        if (date.length() > 0) { //清除上次记录的日期
-            date.delete(0, date.length());
+        if (choosedate.length() > 0) { //清除上次记录的日期
+            choosedate.delete(0, choosedate.length());
         }
-        date.append(year).append(TimeUtils.YEAR_SPACER).append(getMonth()).append(TimeUtils.MONTH_SPACER).append(getDay()).append(TimeUtils.DAY_SPACER);
-        return date.toString();
+        choosedate.append(year).append(TimeUtils.YEAR_SPACER).append(getMonth()).append(TimeUtils.MONTH_SPACER).append(getDay()).append(TimeUtils.DAY_SPACER);
+        return choosedate.toString();
     }
 
     private String getMonth(){

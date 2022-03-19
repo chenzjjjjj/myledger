@@ -31,6 +31,8 @@ public class KeyboardUtils {
     private MyKeyBoardView mKeyboardView;
     private Keyboard mKeyboardNumber;//数字键盘
     private EditText mEditText;
+    public static final int KEYCODE_POINT = 46;
+    private int decimalPlaces = 0; //表示小数后几位
 
 
     public KeyboardUtils(Activity activity) {
@@ -85,20 +87,38 @@ public class KeyboardUtils {
                 if (editable != null && editable.length() > 0) {
                     if (start > 0) {
                         editable.delete(start - 1, start);
+                        if (decimalPlaces > 0) {
+                            decimalPlaces--;
+                        }
                     }
                 }
-            } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {// 隐藏键盘
+            } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {// 如果按下的是返回，隐藏键盘
                 hideKeyboard();
                 if (mOnCancelClick != null) {
                     mOnCancelClick.onCancellClick();
                 }
-            } else if (primaryCode == Keyboard.KEYCODE_DONE) {// 隐藏键盘
+            } else if (primaryCode == Keyboard.KEYCODE_DONE) {// 如果按下的是确认键，隐藏键盘并触发确认点击事件
                 hideKeyboard();
                 if (mOnOkClick != null) {
                     mOnOkClick.onOkClick();
                 }
+            }else if(primaryCode == KEYCODE_POINT){ //如果按下的是小数点
+                // 小数点只能出现一次，如果出现在首位，则要前面加0
+                if (editable.length() == 0){
+                    editable.insert(start, "0" + Character.toString((char) primaryCode));
+                }else if (editable.toString().indexOf(".") == -1){
+                    editable.insert(start, Character.toString((char) primaryCode));
+                }
             } else {
-                editable.insert(start, Character.toString((char) primaryCode));
+                if (editable.toString().indexOf(".") > 0 ) {
+                    // 如果有小数点，则后面只允许有两位
+                    if (decimalPlaces < 2) {
+                        editable.insert(start, Character.toString((char) primaryCode));
+                        decimalPlaces++;
+                    }
+                }else {
+                    editable.insert(start, Character.toString((char) primaryCode));
+                }
             }
         }
 

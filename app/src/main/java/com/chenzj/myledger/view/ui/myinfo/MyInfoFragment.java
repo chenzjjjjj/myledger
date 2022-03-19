@@ -45,9 +45,7 @@ public class MyInfoFragment extends Fragment {
         myInfoViewModel = new ViewModelProvider(getActivity()).get(MyInfoViewModel.class);
         final TextView textUserName = root.findViewById(R.id.user_name);
         final TextView textUserAcc = root.findViewById(R.id.user_account);
-//        User user = myInfoViewModel.getUserMLData().getValue();
-//        textUserName.setText(user.getUsername());
-//        textUserAcc.setText(user.getAccount());
+        //实时监听数据变化
         myInfoViewModel.getUserMLData().observe(getViewLifecycleOwner(), new Observer<User>() {
             @Override
             public void onChanged(@Nullable User user) {
@@ -69,7 +67,7 @@ public class MyInfoFragment extends Fragment {
 
     private void initDialog() {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
-        bottomSheetDialog.setContentView(R.layout.bottom_dialog);
+        bottomSheetDialog.setContentView(R.layout.bottom_dialog_more);
         //给布局设置透明背景色，让图片突出来
         bottomSheetDialog.getDelegate().findViewById(com.google.android.material.R.id.design_bottom_sheet)
                 .setBackgroundColor(getResources().getColor(android.R.color.transparent));

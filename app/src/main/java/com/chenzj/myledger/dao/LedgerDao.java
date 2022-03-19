@@ -15,6 +15,7 @@ import com.chenzj.myledger.utils.TimeUtils;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
 /**
@@ -53,13 +54,21 @@ public class LedgerDao {
             sqlarr.add("amount=?");
             args.add(String.valueOf(ledger.getAmount()));
         }
-        if (ledger.getClassifyId() > 0){
+        if (ledger.getClassifyId() >= 0){
             sqlarr.add("classify_id=?");
             args.add(ledger.getClassifyId()+"");
+        }
+        if (ledger.getType() >= 0){
+            sqlarr.add("type=?");
+            args.add(ledger.getType()+"");
         }
         if (StringUtils.isNotBlank(ledger.getRemark())){
             sqlarr.add("remark=?");
             args.add(ledger.getRemark());
+        }
+        if (StringUtils.isNotBlank(ledger.getInsertTime())){
+            sqlarr.add("insert_time=?");
+            args.add(ledger.getInsertTime());
         }
         sql.append(StringUtils.join(sqlarr.toArray(), ", "));
         sql.append(" where id=?");
@@ -126,7 +135,23 @@ public class LedgerDao {
             dayLedger.setDate(day);
             dayLedgers.add(dayLedger);
         }
-        Collections.reverse(dayLedgers);
+        //对list进行按日期排序排序
+        Collections.sort(dayLedgers,new Comparator<DayLedger>(){
+            @Override
+            public int compare(DayLedger o1, DayLedger o2) {
+                String dateStr1 = o1.getDate();
+                String dateStr2 = o2.getDate();
+                Date date1 = null;
+                Date date2 = null;
+                try {
+                    date1 = TimeUtils.dayStr2date(dateStr1);
+                    date2 = TimeUtils.dayStr2date(dateStr2);
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+                return (int) (date2.getTime() - date1.getTime());
+            }
+        });
         return dayLedgers;
     }
 

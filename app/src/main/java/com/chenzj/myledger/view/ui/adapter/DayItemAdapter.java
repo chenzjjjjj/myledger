@@ -1,14 +1,20 @@
 package com.chenzj.myledger.view.ui.adapter;
 
 import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import com.chenzj.myledger.R;
+import com.chenzj.myledger.dao.LedgerDao;
 import com.chenzj.myledger.model.Classification;
 import com.chenzj.myledger.model.DayLedger;
+import com.chenzj.myledger.model.Ledger;
+import com.chenzj.myledger.view.AddLedgerActivity;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +30,7 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
     private List<DayLedger> dayLedgers;  /*数据源*/
     private LayoutInflater listContainer; // 视图容器
     private int resource;
+    Ledger chooseledger;
 
     public DayItemAdapter(@NonNull Context context, int resource, @NonNull List<DayLedger> objects) {
         super(context, resource, objects);
@@ -82,11 +89,61 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
             //当某个元素被点击时调用该方法
             public void onItemClick(AdapterView<?> parent, View view, int position,//parent就是ListView，view表示Item视图，position表示数据索引
                                     long id) {
-                TextView item = view.findViewById(R.id.text_item);
-                Toast.makeText(getContext(), item.getText(),Toast.LENGTH_LONG).show();
+//                TextView item = view.findViewById(R.id.text_item);
+                //记录点击的列
+                ListLedgerAdapter adapter = (ListLedgerAdapter) parent.getAdapter();
+                chooseledger = adapter.getItem(position);
+                showBottomDialog(adapter, position);
+//                Toast.makeText(getContext(), item.getText(),Toast.LENGTH_LONG).show();
             }
         });
         return itemView;
+    }
+
+    public void showBottomDialog(ListLedgerAdapter adapter, int position) {
+        BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
+        bottomSheetDialog.setContentView(R.layout.bottom_dialog_ledger);
+        //给布局设置透明背景色，让图片突出来
+        bottomSheetDialog.getDelegate().findViewById(com.google.android.material.R.id.design_bottom_sheet)
+                .setBackgroundColor(getContext().getResources().getColor(android.R.color.transparent));
+
+        bottomSheetDialog.findViewById(R.id.tv_edit_ledger).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                // 跳到编辑页面
+                Intent intent = new Intent(getContext(), AddLedgerActivity.class);
+                Bundle bundle = new Bundle();
+                bundle.putInt("classifyId",chooseledger.getClassifyId());
+                bundle.putInt("id",chooseledger.getId());
+                bundle.putDouble("amount",chooseledger.getAmount());
+                bundle.putInt("type",chooseledger.getType());
+                bundle.putString("remark",chooseledger.getRemark());
+                bundle.putString("date",chooseledger.getInsertTime());
+                intent.putExtras(bundle);
+                getContext().startActivity(intent);
+                bottomSheetDialog.cancel();
+            }
+        });
+
+        bottomSheetDialog.findViewById(R.id.tv_remove_ledger).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                //删除当前记录
+                Ledger ledger = adapter.getItem(position);
+                LedgerDao ledgerDao = new LedgerDao(getContext());
+                ledgerDao.delete(ledger.getId());
+                adapter.remove(position);
+                bottomSheetDialog.cancel();
+            }
+        });
+
+        bottomSheetDialog.findViewById(R.id.tv_cancel).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                bottomSheetDialog.cancel();
+            }
+        });
+        bottomSheetDialog.show();
     }
 
     public void refresh(List<DayLedger> newList) {

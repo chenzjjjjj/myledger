@@ -63,7 +63,7 @@ public class TimeUtils {
     }
 
     public static Date dayStr2date(String datestr) throws ParseException {
-        return ymdhms.parse(datestr);
+        return ymd.parse(datestr);
     }
 
     public static Date monthStr2date(String datestr) throws ParseException {
