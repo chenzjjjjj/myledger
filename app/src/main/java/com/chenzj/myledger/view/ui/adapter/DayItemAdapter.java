@@ -10,10 +10,11 @@ import android.widget.*;
 import androidx.annotation.NonNull;
 import com.chenzj.myledger.R;
 import com.chenzj.myledger.dao.LedgerDao;
-import com.chenzj.myledger.model.Classification;
 import com.chenzj.myledger.model.DayLedger;
 import com.chenzj.myledger.model.Ledger;
+import com.chenzj.myledger.model.MonthTotal;
 import com.chenzj.myledger.view.AddLedgerActivity;
+import com.chenzj.myledger.view.ui.home.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
     private LayoutInflater listContainer; // 视图容器
     private int resource;
     Ledger chooseledger;
+    private HomeViewModel homeViewModel;
+    private MonthTotal monthTotal = null;
 
     public DayItemAdapter(@NonNull Context context, int resource, @NonNull List<DayLedger> objects) {
         super(context, resource, objects);
@@ -47,6 +50,10 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
         ListView dayListView;
     }
 
+    public void setHomeViewModel(HomeViewModel homeViewModel){
+        this.homeViewModel = homeViewModel;
+        monthTotal = homeViewModel.getMonthTotalMLData().getValue();
+    }
 
     public int getCount() {
         return dayLedgers.size();
@@ -100,6 +107,11 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
         return itemView;
     }
 
+    /**
+     * 底部弹窗
+     * @param adapter
+     * @param position
+     */
     public void showBottomDialog(ListLedgerAdapter adapter, int position) {
         BottomSheetDialog bottomSheetDialog = new BottomSheetDialog(getContext());
         bottomSheetDialog.setContentView(R.layout.bottom_dialog_ledger);
@@ -132,7 +144,8 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
                 Ledger ledger = adapter.getItem(position);
                 LedgerDao ledgerDao = new LedgerDao(getContext());
                 ledgerDao.delete(ledger.getId());
-                adapter.remove(position);
+                removeLedger(ledger);
+                notifyDataSetChanged(); // 刷新列表
                 bottomSheetDialog.cancel();
             }
         });
@@ -165,6 +178,37 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
             dayLedgers.remove(dayLedger);
         }
         notifyDataSetChanged();
+    }
+
+    /**
+     * 删除子list里面的元素
+     * @param ledger
+     */
+    public void removeLedger(Ledger ledger){
+        String date = ledger.getInsertTime();
+        for (int i=0; i<dayLedgers.size(); i++){
+            DayLedger dayLedger = dayLedgers.get(i);
+            if (dayLedger.getDate().equals(date)){
+                List<Ledger> ledgerList = dayLedger.getLedgers();
+                int size = ledgerList.size();
+                for (int j=0; j<size; j++){
+                    if (ledger.getId() == ledgerList.get(j).getId()){
+                        ledgerList.remove(j);
+                        if (ledger.getType() == 0) {
+                            dayLedger.setCostTotal(dayLedger.getCostTotal() - ledger.getAmount());
+                            monthTotal.setCostTotal(monthTotal.getCostTotal() - ledger.getAmount());
+                        }else {
+                            dayLedger.setIncomeTotal(dayLedger.getIncomeTotal() - ledger.getAmount());
+                            monthTotal.setIncomeTotal(monthTotal.getIncomeTotal() - ledger.getAmount());
+                        }
+                        //将数据放入到viewmodel里面，刷新数据
+                        homeViewModel.getMonthTotalMLData().setValue(monthTotal);
+                        break;
+                    }
+                }
+                break;
+            }
+        }
     }
 
     public void remove(int position) {

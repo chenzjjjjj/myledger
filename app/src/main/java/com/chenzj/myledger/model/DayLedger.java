@@ -60,4 +60,8 @@ public class DayLedger {
     public void setLedgers(List<Ledger> ledgers) {
         this.ledgers = ledgers;
     }
+
+    public void reduceCostTotal(double cost){
+        this.costTotal = this.costTotal - cost;
+    }
 }

@@ -102,8 +102,8 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
             @Override
             public void onClick(View view, Classification info) {
                 chooseClassify = info;
-                Snackbar.make(view, info.getClassify_name(), Snackbar.LENGTH_SHORT)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, info.getClassify_name(), Snackbar.LENGTH_SHORT)
+//                        .setAction("Action", null).show();
             }
         });
 
@@ -142,10 +142,9 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         //创建列表
         RecyclerView recyclerView = findViewById(R.id.view_classify_item);
         //网格布局
-        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 3);
+        GridLayoutManager gridLayoutManager = new GridLayoutManager(this, 2);
         // 设置滚动方向
         gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
-        gridLayoutManager.setAutoMeasureEnabled(true);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(mAdapter);
         recyclerView.addItemDecoration(new DividerGridItemDecoration(this));

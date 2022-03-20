@@ -3,17 +3,18 @@ package com.chenzj.myledger.view.ui.home;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
+import com.chenzj.myledger.model.MonthTotal;
+import com.chenzj.myledger.model.User;
 
 public class HomeViewModel extends ViewModel {
 
-    private MutableLiveData<String> mText;
+    private MutableLiveData<MonthTotal> MonthTotalMLData;
 
-    public HomeViewModel() {
-        mText = new MutableLiveData<>();
-        mText.setValue("This is home fragment");
-    }
-
-    public LiveData<String> getText() {
-        return mText;
+    public MutableLiveData<MonthTotal> getMonthTotalMLData() {
+        if (MonthTotalMLData == null){
+            MonthTotalMLData = new MutableLiveData<>();
+            MonthTotalMLData.setValue(new MonthTotal());
+        }
+        return MonthTotalMLData;
     }
 }
