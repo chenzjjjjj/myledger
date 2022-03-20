@@ -4,6 +4,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.View;
 import android.widget.*;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.chenzj.myledger.view.ui.adapter.ClassifyAdapter;
 import com.chenzj.myledger.view.ui.adapter.DividerGridItemDecoration;
 import com.chenzj.myledger.view.ui.myinfo.MyInfoViewModel;
 import com.google.android.material.snackbar.Snackbar;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -147,7 +149,7 @@ public class AddLedgerActivity extends AppCompatActivity implements DatePicker.O
         gridLayoutManager.setOrientation(LinearLayoutManager.HORIZONTAL);
         recyclerView.setLayoutManager(gridLayoutManager);
         recyclerView.setAdapter(mAdapter);
-        recyclerView.addItemDecoration(new DividerGridItemDecoration(this));
+        recyclerView.addItemDecoration(new DividerGridItemDecoration(this)); // 给RecyclerView的item添加间隔
     }
 
     private int getPosition(Classification chooseClassify) {

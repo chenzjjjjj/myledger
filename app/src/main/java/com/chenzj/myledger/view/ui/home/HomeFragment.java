@@ -14,6 +14,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 import com.chenzj.myledger.R;
 import com.chenzj.myledger.common.Constant;
 import com.chenzj.myledger.dao.CacheDao;
@@ -29,6 +30,7 @@ import com.chenzj.myledger.view.ui.adapter.DayItemAdapter;
 import com.chenzj.myledger.view.ui.myinfo.MyInfoViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.*;
 
@@ -36,6 +38,7 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
 
     private ListView listView;
     private LedgerDao ledgerDao;
+    private FloatingActionButton addFab;
     private List<DayLedger> dayLedgers;
     private DayItemAdapter listAdapter;
     private boolean isRefresh = true;
@@ -82,8 +85,8 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
         showListView(root);
 
         // 初始化悬浮按钮
-        FloatingActionButton fab = root.findViewById(R.id.fab_add_ledger);
-        fab.setOnClickListener(new View.OnClickListener() {
+        addFab = root.findViewById(R.id.fab_add_ledger);
+        addFab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(getActivity(), AddLedgerActivity.class));
@@ -137,6 +140,28 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
         listAdapter = new DayItemAdapter(getContext(), R.layout.view_day_item, dayLedgers);
         listAdapter.setHomeViewModel(homeViewModel);
         listView.setAdapter(listAdapter);
+        //添加滚动事件
+        listView.setOnScrollListener(new AbsListView.OnScrollListener(){
+            @Override
+            public void onScrollStateChanged(AbsListView view, int scrollState){
+                // 当不滚动时
+                if (scrollState == AbsListView.OnScrollListener.SCROLL_STATE_IDLE) {
+                    // 判断是否滚动到底部
+                    if (view.getLastVisiblePosition() == view.getCount() - 1) {
+                        // 隐藏加号按钮
+                        addFab.hide();
+                    }else {
+                        //展示
+                        addFab.show();
+                    }
+                }
+            }
+
+            @Override
+            public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+
+            }
+        });
     }
 
     public void showDateDialog() {
