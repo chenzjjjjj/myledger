@@ -4,6 +4,9 @@
 
 #### 下载：
 点击 [下载](https://github.com/chenzjjjjj/myledger/releases)
+蓝奏:
+https://wwu.lanzouh.com/b036tkr8j
+密码:8yny
 
 #### 已实现功能：
 
