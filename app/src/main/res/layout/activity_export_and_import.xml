@@ -37,12 +37,23 @@
                        android:src="@drawable/excel"
             />
             <TextView android:layout_width="match_parent"
-                      android:padding="30dp"
-                      android:layout_height="100dp"
+                      android:paddingTop="30dp"
+                      android:paddingLeft="30dp"
+                      android:paddingRight="30dp"
+                      android:textColor="@color/yellow_5"
+                      android:layout_height="wrap_content"
                       android:textSize="@dimen/sp_size_16"
-                      android:text="@string/introduction_export"
-            />
-    </LinearLayout>
+                      android:text="@string/introduction_export"/>
+
+            <TextView android:layout_width="match_parent"
+                      android:paddingLeft="30dp"
+                      android:paddingRight="30dp"
+                      android:paddingTop="15dp"
+                      android:layout_height="wrap_content"
+                      android:textColor="@color/yellow_5"
+                      android:textSize="@dimen/sp_size_16"
+                      android:text="@string/introduction_import"/>
+</LinearLayout>
 
     <LinearLayout
             android:layout_width="fill_parent"
@@ -55,7 +66,16 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/button1"
                 android:textColor="@color/white"
+                android:layout_marginBottom="10dp"
                 android:text="导出"
+                android:textSize="@dimen/sp_size_16"
+                android:focusable="false" />
+        <Button android:id="@+id/btn_import"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/translucent_button"
+                android:textColor="@color/white"
+                android:text="导入"
                 android:textSize="@dimen/sp_size_16"
                 android:focusable="false" />
     </LinearLayout>

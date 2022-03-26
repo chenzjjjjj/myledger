@@ -8,7 +8,8 @@
 
     <string name="hello_first_fragment">Hello！这里是小账本</string>
     <string name="introduction_second_fragment">欢迎使用. 该软件为记账工具，用于记录您的收入和生活中的各项花费，方便理财。此软件仅作学习使用</string>
-    <string name="introduction_export">欢迎使用导出功能，点击下方导出按钮即可导出excel，文件将存放在Download目录</string>
+    <string name="introduction_export">欢迎使用导出以及导入功能，点击下方导出按钮即可将全部账目数据导出为excel，内容格式如上图所示，文件将存放在Download目录</string>
+    <string name="introduction_import">同样点击下方的导入按钮可以从excel文件中导入数据，要求内容格式如上图所示，导入之后会生成新的记录，不会覆盖现有的</string>
     <string name="title_activity_ledger">MainActivity</string>
     <string name="title_home">账单</string>
     <string name="title_statistic">统计</string>

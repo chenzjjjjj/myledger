@@ -15,6 +15,7 @@ import com.chenzj.myledger.utils.TimeUtils;
 
 import java.text.ParseException;
 import java.util.*;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.stream.Collectors;
 
@@ -25,6 +26,8 @@ import java.util.stream.Collectors;
  */
 public class LedgerDao {
     private DBHelper dbHelper;
+    private ConcurrentHashMap<Integer, String> IdToclassifyMap = new ConcurrentHashMap<>();
+    private ConcurrentHashMap<String, Integer> classifyToIdMap = new ConcurrentHashMap<>();
 
     public LedgerDao(Context context) {
         this.dbHelper = DBHelper.getInstance(context);
@@ -38,6 +41,12 @@ public class LedgerDao {
         SQLiteDatabase db = dbHelper.getWritableDatabase();// 取得数据库操作
         db.execSQL("insert into t_ledger (amount, insert_time,type, remark,classify_id,user_id) values(?,?,?,?,?,?)",
                 new Object[] { ledger.getAmount(), ledger.getInsertTime(), ledger.getType(), ledger.getRemark(), ledger.getClassifyId(),ledger.getUserId()});
+    }
+
+    public void add(Ledger ledger, int userId) {
+        SQLiteDatabase db = dbHelper.getWritableDatabase();// 取得数据库操作
+        db.execSQL("insert into t_ledger (amount, insert_time,type, remark,classify_id,user_id) values(?,?,?,?,?,?)",
+                new Object[] { ledger.getAmount(), ledger.getInsertTime(), ledger.getType(), ledger.getRemark(), ledger.getClassifyId(),userId});
     }
 
     public void delete(int id) {
@@ -175,12 +184,30 @@ public class LedgerDao {
     }
 
     public String findClassifyName(int  classify_id){
-        String v = null;
-        SQLiteDatabase db = dbHelper.getReadableDatabase();
-        // 用游标Cursor接收从数据库检索到的数据
-        Cursor cursor = db.rawQuery("select classify_name from t_classification where classify_id=?", new String[] { classify_id+"" });
-        if (cursor.moveToFirst()) {
-            v= cursor.getString(cursor.getColumnIndex("classify_name"));
+        String v = IdToclassifyMap.get(classify_id);
+        if (StringUtils.isBlank(v)) {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            // 用游标Cursor接收从数据库检索到的数据
+            Cursor cursor = db.rawQuery("select classify_name from t_classification where classify_id=?", new String[]{classify_id + ""});
+            if (cursor.moveToFirst()) {
+                v = cursor.getString(cursor.getColumnIndex("classify_name"));
+                IdToclassifyMap.put(classify_id, v);
+                classifyToIdMap.put(v,classify_id);
+            }
+        }
+        return v;
+    }
+
+    public int findClassifyId(String name){
+        Integer v = classifyToIdMap.get(name);
+        if (v == null) {
+            SQLiteDatabase db = dbHelper.getReadableDatabase();
+            // 用游标Cursor接收从数据库检索到的数据
+            Cursor cursor = db.rawQuery("select classify_id from t_classification where classify_name=?", new String[]{ name });
+            if (cursor.moveToFirst()) {
+                v = cursor.getInt(cursor.getColumnIndex("classify_id"));
+                classifyToIdMap.put(name, v);
+            }
         }
         return v;
     }
@@ -214,5 +241,14 @@ public class LedgerDao {
         db.setTransactionSuccessful();
         db.endTransaction();
         db.close();
+    }
+
+    public void addPatchLedger(List<Ledger> ledgerList, int userId) {
+        int size = ledgerList.size();
+        for (int i=0; i<size; i++){
+            Ledger ledger = ledgerList.get(i);
+            ledger.setClassifyId(findClassifyId(ledger.getClassify()));
+            add(ledger,userId);
+        }
     }
 }

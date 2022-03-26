@@ -93,7 +93,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             leon:leftIcon="@drawable/ic_dashboard_black_24dp"
-            leon:leftText="导出Excel"/>
+            leon:leftText="导出和导入"/>
 
 <!--    <com.leon.lib.settingview.LSettingItem-->
 <!--            android:layout_width="match_parent"-->

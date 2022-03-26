@@ -20,17 +20,17 @@ public class DayLedger {
     }
     public DayLedger(List<Ledger> ledgers){
         this.ledgers = ledgers;
-        int cost = 0;
-        int income = 0;
+        double cost = 0;
+        double income = 0;
         for (Ledger ledger : ledgers){
             if (ledger.getType() == 0){
-                this.costTotal = ArithUtils.add(this.costTotal, ledger.getAmount());
-//                this.costTotal += ledger.getAmount();
+                cost = ArithUtils.add(cost, ledger.getAmount());
             }else {
-                this.incomeTotal = ArithUtils.add(this.incomeTotal, ledger.getAmount());
-//                this.incomeTotal += ledger.getAmount();
+                income = ArithUtils.add(income, ledger.getAmount());
             }
         }
+        this.costTotal = cost;
+        this.incomeTotal = income;
     }
 
     public String getDate() {

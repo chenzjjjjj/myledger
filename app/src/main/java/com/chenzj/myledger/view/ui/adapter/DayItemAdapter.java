@@ -13,6 +13,7 @@ import com.chenzj.myledger.dao.LedgerDao;
 import com.chenzj.myledger.model.DayLedger;
 import com.chenzj.myledger.model.Ledger;
 import com.chenzj.myledger.model.MonthTotal;
+import com.chenzj.myledger.utils.ArithUtils;
 import com.chenzj.myledger.view.AddLedgerActivity;
 import com.chenzj.myledger.view.ui.home.HomeViewModel;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
@@ -195,11 +196,11 @@ public class DayItemAdapter extends ArrayAdapter<DayLedger> {
                     if (ledger.getId() == ledgerList.get(j).getId()){
                         ledgerList.remove(j);
                         if (ledger.getType() == 0) {
-                            dayLedger.setCostTotal(dayLedger.getCostTotal() - ledger.getAmount());
-                            monthTotal.setCostTotal(monthTotal.getCostTotal() - ledger.getAmount());
+                            dayLedger.setCostTotal(ArithUtils.sub(dayLedger.getCostTotal() , ledger.getAmount()));
+                            monthTotal.setCostTotal(ArithUtils.sub(monthTotal.getCostTotal() , ledger.getAmount()));
                         }else {
-                            dayLedger.setIncomeTotal(dayLedger.getIncomeTotal() - ledger.getAmount());
-                            monthTotal.setIncomeTotal(monthTotal.getIncomeTotal() - ledger.getAmount());
+                            dayLedger.setIncomeTotal(ArithUtils.sub(dayLedger.getIncomeTotal() , ledger.getAmount()));
+                            monthTotal.setIncomeTotal(ArithUtils.sub(monthTotal.getIncomeTotal() , ledger.getAmount()));
                         }
                         //将数据放入到viewmodel里面，刷新数据
                         homeViewModel.getMonthTotalMLData().setValue(monthTotal);
