@@ -18,8 +18,11 @@ import com.chenzj.myledger.dao.CacheDao;
 import com.chenzj.myledger.R;
 import com.chenzj.myledger.common.Constant;
 import com.chenzj.myledger.model.User;
+import com.chenzj.myledger.view.AddLedgerActivity;
+import com.chenzj.myledger.view.ExportAndImportActivity;
 import com.chenzj.myledger.view.LoginActivity;
 import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.leon.lib.settingview.LSettingItem;
 import jp.wasabeef.glide.transformations.BlurTransformation;
 import jp.wasabeef.glide.transformations.CropCircleTransformation;
 
@@ -54,6 +57,7 @@ public class MyInfoFragment extends Fragment {
             }
         });
 
+        //菜单按钮
         ImageView morebt = root.findViewById(R.id.ic_exit);
         morebt.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -61,6 +65,21 @@ public class MyInfoFragment extends Fragment {
                 initDialog();
             }
         });
+
+        //导出excel
+        LSettingItem exportSettingItem = root.findViewById(R.id.setingItem_export);
+        exportSettingItem.setmOnLSettingItemClick(new LSettingItem.OnLSettingItemClick() {
+            @Override
+            public void click(boolean isChecked) {
+                startActivity(new Intent(getActivity(), ExportAndImportActivity.class));
+            }
+        });
+//        exportSettingItem.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                startActivity(new Intent(getActivity(), ExportAndImportActivity.class));
+//            }
+//        });
 
         return root;
     }

@@ -93,7 +93,7 @@ public class KeyboardUtils {
                     }
                 }
             } else if (primaryCode == Keyboard.KEYCODE_CANCEL) {// 如果按下的是返回，隐藏键盘
-                hideKeyboard();
+//                hideKeyboard();
                 if (mOnCancelClick != null) {
                     mOnCancelClick.onCancellClick();
                 }

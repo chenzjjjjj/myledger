@@ -69,4 +69,9 @@ public class TimeUtils {
     public static Date monthStr2date(String datestr) throws ParseException {
         return ym.parse(datestr);
     }
+
+    public static String convertTime(long time, String patter) {
+        SimpleDateFormat sdf = new SimpleDateFormat(patter);
+        return sdf.format(new Date(time));
+    }
 }

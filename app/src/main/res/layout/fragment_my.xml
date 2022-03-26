@@ -75,48 +75,63 @@
     </RelativeLayout>
 
     <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_one"
+            android:id="@+id/setingItem_edit"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             leon:leftIcon="@drawable/ic_dashboard_black_24dp"
             leon:leftText="编辑信息"/>
 
     <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/setingItem_classify"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="标签管理"/>
+
+    <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/setingItem_export"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
+            leon:leftText="导出Excel"/>
+
+<!--    <com.leon.lib.settingview.LSettingItem-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            leon:leftIcon="@drawable/ic_dashboard_black_24dp"-->
+<!--            leon:leftText="类别管理"-->
+<!--            leon:rightStyle="iconHide"/>-->
+
+<!--    <com.leon.lib.settingview.LSettingItem-->
+<!--            android:id="@+id/item_four"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            leon:leftIcon="@drawable/ic_dashboard_black_24dp"-->
+<!--            leon:leftText="卡包"-->
+<!--            leon:rightStyle="iconCheck"/>-->
+
+<!--    <com.leon.lib.settingview.LSettingItem-->
+<!--            android:id="@+id/setingItem_set"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            leon:leftIcon="@drawable/ic_dashboard_black_24dp"-->
+<!--            leon:leftText="设置"/>-->
+
+    <com.leon.lib.settingview.LSettingItem
+            android:id="@+id/setingItem_about"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             leon:leftIcon="@drawable/ic_dashboard_black_24dp"
             leon:leftText="关于"/>
 
-    <com.leon.lib.settingview.LSettingItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
-            leon:leftText="类别管理"
-            leon:rightStyle="iconHide"/>
 
-    <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_four"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
-            leon:leftText="卡包"
-            leon:rightStyle="iconCheck"/>
-
-    <com.leon.lib.settingview.LSettingItem
-            android:id="@+id/item_five"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
-            leon:leftText="设置"/>
-
-
-    <com.leon.lib.settingview.LSettingItem
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            leon:isShowUnderLine="false"
-            leon:leftIcon="@drawable/ic_dashboard_black_24dp"
-            leon:leftText="开关"
-            leon:rightStyle="iconSwitch"/>
+<!--    <com.leon.lib.settingview.LSettingItem-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            leon:isShowUnderLine="false"-->
+<!--            leon:leftIcon="@drawable/ic_dashboard_black_24dp"-->
+<!--            leon:leftText="开关"-->
+<!--            leon:rightStyle="iconSwitch"/>-->
 
 
 </LinearLayout>

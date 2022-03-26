@@ -1,5 +1,7 @@
 package com.chenzj.myledger.model;
 
+import com.chenzj.myledger.utils.ArithUtils;
+
 import java.util.List;
 
 /**
@@ -22,9 +24,11 @@ public class DayLedger {
         int income = 0;
         for (Ledger ledger : ledgers){
             if (ledger.getType() == 0){
-                this.costTotal += ledger.getAmount();
+                this.costTotal = ArithUtils.add(this.costTotal, ledger.getAmount());
+//                this.costTotal += ledger.getAmount();
             }else {
-                this.incomeTotal += ledger.getAmount();
+                this.incomeTotal = ArithUtils.add(this.incomeTotal, ledger.getAmount());
+//                this.incomeTotal += ledger.getAmount();
             }
         }
     }

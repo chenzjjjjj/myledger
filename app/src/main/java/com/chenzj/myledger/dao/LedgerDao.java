@@ -76,15 +76,16 @@ public class LedgerDao {
         db.execSQL(sql.toString(), args.toArray());
     }
 
-    public List<Ledger> findLedgersBytime(String time){
+    public List<Ledger> findAllLedgers(int id){
         List<Ledger> lists = new ArrayList<>();
         Ledger ledger = null;
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         // Cursor cursor=db.rawQuery("select * from t_users limit ?,?", new
         // String[]{offset.toString(),maxLength.toString()});
         // //这里支持类型MYSQL的limit分页操作
-
-        Cursor cursor = db.rawQuery("select * from t_ledger where insert_time=?", new String[]{time});
+        // select classify_name from t_classification where classify_id=?
+        Cursor cursor = db.rawQuery("select l.*,c.classify_name from t_ledger l left join t_classification c  on l.classify_id = c.classify_id" +
+                " where user_id=?", new String[]{id+""});
         while (cursor.moveToNext()) {
             ledger = new Ledger();
             ledger.setAmount(cursor.getDouble(cursor.getColumnIndex("amount")));
@@ -94,7 +95,7 @@ public class LedgerDao {
             ledger.setType(cursor.getInt(cursor.getColumnIndex("type")));
             ledger.setUserId(cursor.getInt(cursor.getColumnIndex("user_id")));
             ledger.setRemark(cursor.getString(cursor.getColumnIndex("remark")));
-            ledger.setClassify(findClassifyName(ledger.getClassifyId()));
+            ledger.setClassify(cursor.getString(cursor.getColumnIndex("classify_name")));
             lists.add(ledger);
         }
         return lists;
@@ -171,36 +172,6 @@ public class LedgerDao {
             }
             listTmp.add(val);
         }
-    }
-
-    public List<DayLedger> findDayledgersBymonth(String yyyy_mm){
-        List<DayLedger> dayLedgers = new ArrayList<>();
-        String currentMonth = TimeUtils.date2stringMonth(new Date());
-        int maxDay = 0;
-        if (currentMonth.equals(yyyy_mm)){ // 当前月份
-            maxDay = TimeUtils.getDayNumOfMonth(null);
-        }else {
-            Date monthdate = null;
-            try {
-                monthdate = TimeUtils.monthStr2date(yyyy_mm);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-            maxDay = TimeUtils.getDayNumOfMonth(monthdate);
-        }
-
-        for (int i=1; i<maxDay; i++){
-            String dd = i < 10? "0"+i : i+"";
-            String day = yyyy_mm + dd;
-            List<Ledger> ledgers= findLedgersBytime(day);
-            if (ledgers==null || ledgers.isEmpty()){
-                continue;
-            }
-            DayLedger dayLedger = new DayLedger(ledgers);
-            dayLedger.setDate(day);
-            dayLedgers.add(dayLedger);
-        }
-        return dayLedgers;
     }
 
     public String findClassifyName(int  classify_id){

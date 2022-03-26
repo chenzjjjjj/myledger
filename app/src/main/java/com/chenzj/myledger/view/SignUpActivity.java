@@ -28,9 +28,9 @@ public class SignUpActivity extends AppCompatActivity {
         backLoginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+//                Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                 //跳转新Activity
-                startActivity(intent);
+//                startActivity(intent);
                 //关闭原本的Activity
                 SignUpActivity.this.finish();
             }

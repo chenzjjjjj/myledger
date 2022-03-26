@@ -22,6 +22,7 @@ import com.chenzj.myledger.dao.LedgerDao;
 import com.chenzj.myledger.model.DayLedger;
 import com.chenzj.myledger.model.MonthTotal;
 import com.chenzj.myledger.model.User;
+import com.chenzj.myledger.utils.ArithUtils;
 import com.chenzj.myledger.utils.StringUtils;
 import com.chenzj.myledger.utils.TimeUtils;
 import com.chenzj.myledger.view.AddLedgerActivity;
@@ -66,8 +67,8 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
         homeViewModel.getMonthTotalMLData().observe(getViewLifecycleOwner(), new Observer<MonthTotal>() {
             @Override
             public void onChanged(@Nullable MonthTotal mtotal) {
-                tvIncomeMonth.setText("月收入："+mtotal.getIncomeTotal());
-                tvCostMonth.setText("月支出："+mtotal.getCostTotal());
+                tvIncomeMonth.setText("月收入："+ ArithUtils.get2plase(mtotal.getIncomeTotal()));
+                tvCostMonth.setText("月支出："+ ArithUtils.get2plase(mtotal.getCostTotal()));
             }
         });
 
@@ -140,6 +141,9 @@ public class HomeFragment extends Fragment implements DatePicker.OnDateChangedLi
         listAdapter = new DayItemAdapter(getContext(), R.layout.view_day_item, dayLedgers);
         listAdapter.setHomeViewModel(homeViewModel);
         listView.setAdapter(listAdapter);
+        View footerView = View.inflate(getContext(), R.layout.view_bottom_empty, null);
+//        View view = LayoutInflater.from(getContext()).inflate(R.layout.view_bottom_empty, null);
+        listView.addFooterView(footerView); //底部添加一个空白
         //添加滚动事件
         listView.setOnScrollListener(new AbsListView.OnScrollListener(){
             @Override

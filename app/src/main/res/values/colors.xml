@@ -21,6 +21,7 @@
     <color name="red_dark">#ffcc0000</color>
 
 
+    <color name="yellow_01">#f8dd8b</color>
     <color name="yellow_0">#f8dd8b</color>
     <color name="yellow_1">#ffeb3b</color>
     <color name="yellow_2">#ffc107</color>
@@ -36,6 +37,8 @@
     <color name="green_1">#3f9337</color>
     <color name="green_2">#31CCBC</color>
     <color name="green_3">#1f9baa</color>
+
+    <color name="white_1">#F3FBFF</color>
 
     <color name="key_ok_color">#1280FA</color>
     <color name="key_ok_color_pressed">#0174f2</color>

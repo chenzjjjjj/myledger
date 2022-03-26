@@ -11,7 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:background="#F3FBFF" tools:layout_editor_absoluteY="26dp" tools:layout_editor_absoluteX="0dp">
+            android:background="@color/white" tools:layout_editor_absoluteY="26dp" tools:layout_editor_absoluteX="0dp">
 
         <ImageView
                 android:id="@+id/LogoImage"

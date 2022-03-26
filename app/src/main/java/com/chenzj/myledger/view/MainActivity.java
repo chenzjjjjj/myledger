@@ -2,13 +2,17 @@ package com.chenzj.myledger.view;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
+import android.view.View;
+import android.widget.Button;
 import com.chenzj.myledger.dao.CacheDao;
 import com.chenzj.myledger.R;
 import androidx.appcompat.app.AppCompatActivity;
 import com.chenzj.myledger.common.Constant;
 import com.chenzj.myledger.dao.LedgerDao;
 import com.chenzj.myledger.thread.DataInitThread;
+import com.chenzj.myledger.utils.ExcelUtils;
 import com.chenzj.myledger.utils.StringUtils;
 
 public class MainActivity extends AppCompatActivity {
@@ -23,7 +27,9 @@ public class MainActivity extends AppCompatActivity {
             new DataInitThread(this).start();
         }
         String account = cacheDao.get(Constant.CURRENT_USER);
+        Button button = findViewById(R.id.button_first);
         if (StringUtils.isNotBlank(account)){ // 如果存在则表示用户已登录
+            button.setVisibility(View.GONE); //隐藏按钮
             new Handler().postDelayed(new Runnable(){
                 @Override
                 public void run() {
@@ -32,7 +38,10 @@ public class MainActivity extends AppCompatActivity {
                     MainActivity.this.finish();
 
                 }
-            }, 500);
+            }, 400);
+        }else {
+            ExcelUtils.setFilePath(getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS).getPath());
+            button.setVisibility(View.VISIBLE);
         }
     }
 

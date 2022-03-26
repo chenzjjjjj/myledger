@@ -38,4 +38,10 @@ public class Logger {
         }
     }
 
+    public static void e(String tag, String msg, Throwable e){
+        if (LOG_ENABLE){
+            Log.e(tag, msg, e);
+        }
+    }
+
 }

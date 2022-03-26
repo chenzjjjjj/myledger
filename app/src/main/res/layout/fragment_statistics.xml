@@ -17,10 +17,10 @@
                 android:background="#4588f5"
                 app:headerCenterTextColor="#FFF"
                 app:headerCenterTextSize="14dp"
-                app:headerCenterTitle="记账"
+                app:headerCenterTitle="导出"
                 app:headerCenterTitle2Visibility="gone"
                 app:headerLeftDrawble="@drawable/ic_back"
-                app:headerRightDrawable="@drawable/ic_more"
+                app:headerRightDrawable="@drawable/ic_more_4"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
